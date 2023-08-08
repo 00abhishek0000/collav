@@ -1,0 +1,31 @@
+.clearButton{
+    position: relative;
+    background: rgb(135, 29, 52);
+    z-index: 10;
+    width: 20%;
+    height: 5%;
+    border-radius: 4%;
+    color : white;
+    
+}
+.clearButton:hover , .undoButton:hover{
+    background-color: rgb(210, 62, 94);
+}
+.undoButton{
+    position: relative;
+    background: rgb(135, 29, 52);
+    z-index: 10;
+    width: 20%;
+    border-radius: 2%;
+    height:5%;
+    color: white;
+}
+.canvas{
+    background: white;
+    height : 95%;
+    width : 95%;
+    align-items: center;
+    margin-left: 2.5%;
+    border-radius: 1%;
+    
+}
