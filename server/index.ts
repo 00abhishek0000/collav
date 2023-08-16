@@ -26,6 +26,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('clear',()=>io.emit('clear'));
+    socket.on('clear_done',()=>io.emit('clear_done'));
 
     socket.on('newClient',()=>{
         socket.broadcast.emit('getCanvasState');

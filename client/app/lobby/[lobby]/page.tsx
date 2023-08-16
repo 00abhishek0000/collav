@@ -48,6 +48,7 @@ const Lobby : React.FC = () => {
 
         const hanBtn = ()=>{
             setClear(false);
+            socket.emit('clear_done');
         }
 
         const handleBtn = ()=>{

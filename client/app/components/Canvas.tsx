@@ -18,16 +18,18 @@ type DrawLineProps = {
 const Canvas : React.FC<CanvasProps> = ({clear}) => {
   const [color,setColor] = useState<string>('#000');
   const {canvasRef,onMouseDown} = useDraw(createLine);
+  const [fullClear,setFullClear] = useState<boolean>(false);
 
   useEffect(()=>{
       socket.on('clear',allclear);
-      if(clear){
+      socket.on('clear_done',clearDone);
+      if(clear || fullClear){
         canvasRef!.current!.getContext('2d')!.clearRect(0,0,canvasRef.current!.width,canvasRef.current!.height);
       }
       return()=>{
         socket.off('clear')
       }
-  },[clear])
+  },[clear,fullClear])
 
   useEffect(()=>{
     const ctx =  canvasRef.current?.getContext('2d');
@@ -57,7 +59,10 @@ const Canvas : React.FC<CanvasProps> = ({clear}) => {
   },[canvasRef])
   
   function allclear(){
-      clear = true;
+      setFullClear(true);
+  }
+  function clearDone(){
+    setFullClear(false);
   }
 
   function createLine({prevPoint,currentPoint,ctx} : Draw){
