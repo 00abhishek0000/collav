@@ -3,6 +3,7 @@ import React,{ useEffect, useRef, useState } from "react";
 import  './lobby.css'
 import '../../components/comp.css'
 import Canvas from "@/app/components/Canvas";
+import Docs from "@/app/components/Docs";
 import {io} from 'socket.io-client'
 const socket =io('http://localhost:3001')
 
@@ -89,7 +90,7 @@ const Lobby : React.FC = () => {
                 L
           </div>
           <div ref={rightRef} className="textArea">
-            right
+            <Docs/>
           </div>
         </div>
     )

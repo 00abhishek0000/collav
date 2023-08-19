@@ -35,6 +35,17 @@ io.on('connection',(socket)=>{
     socket.on('canvasState',(state)=>{
         socket.broadcast.emit('canvStateFromServer',state);
     })
+
+    socket.on('contentChange',(newContent)=>{
+        socket.broadcast.emit('contentChange',newContent);
+    })
+
+    socket.on('newJoin',()=>{
+        socket.broadcast.emit('getDocState');
+    })
+    socket.on('DocState',(content)=>{
+        socket.broadcast.emit('DocStateFromServer',content);
+    })
 })
 
 server.listen(3001,()=>{
