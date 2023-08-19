@@ -12,6 +12,7 @@ const Lobby : React.FC = () => {
     const midRef = useRef<HTMLDivElement>(null);
     const btnRef = useRef<HTMLButtonElement>(null);
     const [clear,setClear] = useState(false);
+    const [flag,setFlag] = useState(false);
     const handleClick = ()=>{
         setClear(true);
     }
@@ -36,6 +37,8 @@ const Lobby : React.FC = () => {
             rigWidth = `${rigWidthNum/100 * rigEle!.parentElement!.clientWidth}%`;
             lefEle!.style.width = `${lefWidthNum}%`;
             rigEle!.style.width = `${rigWidthNum}%`;
+
+            setFlag(!flag);
         }
         const mouseUpResize = (event: any)=>{
             document.removeEventListener('mousemove',mouseMoveResize)
@@ -72,13 +75,15 @@ const Lobby : React.FC = () => {
         }
 
     },[])
+    console.log(leftRef.current?.clientWidth,"abc");
+    console.log(flag);
     return (
         <div className="outermost">
           <div ref={leftRef} className="board">
             <button ref={btnRef} className='clearButton' onClick={handleClick}>
                 clear
             </button>
-            <Canvas clear={clear}/>
+            <Canvas flag={flag} adn={leftRef} clear={clear}/>
           </div>
           <div ref={midRef} className="resizer">
                 L

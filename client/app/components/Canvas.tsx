@@ -8,6 +8,8 @@ const socket = io('http://localhost:3001')
 
 interface CanvasProps{
   clear : boolean,
+  adn : React.RefObject<HTMLDivElement>,
+  flag: boolean
 }
 type DrawLineProps = {
   color : string,
@@ -15,11 +17,12 @@ type DrawLineProps = {
   currentPoint: Point,
 }
 
-const Canvas : React.FC<CanvasProps> = ({clear}) => {
+const Canvas : React.FC<CanvasProps> = ({clear,adn,flag}) => {
   const [color,setColor] = useState<string>('#000');
   const {canvasRef,onMouseDown} = useDraw(createLine);
   const [fullClear,setFullClear] = useState<boolean>(false);
-
+  const [canvasWidth,setCanvasWidth] = useState(750);
+  
   useEffect(()=>{
       socket.on('clear',allclear);
       socket.on('clear_done',clearDone);
@@ -30,8 +33,19 @@ const Canvas : React.FC<CanvasProps> = ({clear}) => {
         socket.off('clear')
       }
   },[clear,fullClear])
+  
+  useEffect(()=>{
+    setCanvasWidth(adn.current!.clientWidth*95/100);
+  },[adn.current?.clientWidth])
+  console.log(canvasWidth,"huhuhh");
+
+  // const canvasWidth = adn.current ? adn.current!.clientWidth*95/100 : 750;
+  const canvasHeight = 770;
+
+
 
   useEffect(()=>{
+
     const ctx =  canvasRef.current?.getContext('2d');
     socket.emit('newClient');
     socket.on('getCanvasState',()=>{
@@ -70,9 +84,14 @@ const Canvas : React.FC<CanvasProps> = ({clear}) => {
     drawLine({prevPoint,currentPoint,ctx,color})
   }
 
+  // let canvasWidth = 750;
+  // if(adn.current) canvasWidth =  adn.current.clientWidth*95/100;
+  // let canvasHeight = 770;
+  // if(adn.current) canvasHeight =  adn.current.clientHeight*95/100;
+ 
   return (
     <>
-      <canvas onMouseDown={onMouseDown} ref={canvasRef} className='canvas'>
+      <canvas onMouseDown={onMouseDown}  ref={canvasRef} width={canvasWidth} height={canvasHeight}  className='canvas'>
       </canvas>
     </>
   )

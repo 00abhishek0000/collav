@@ -35,9 +35,6 @@
 }
 .canvas{
     background: white;
-    height : 95%;
-    width : 95%;
-    align-items: center;
     margin-left: 2.5%;
     border-radius: 1%;
 }
@@ -65,13 +62,4 @@
     border-radius: 2%;
     height:5%;
     color: white;
-}
-.canvas{
-    background: white;
-    height : 95%;
-    width : 95%;
-    align-items: center;
-    margin-left: 2.5%;
-    border-radius: 1%;
-    
 }
