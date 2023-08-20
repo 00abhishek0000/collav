@@ -1,0 +1,50 @@
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[3]!./app/mainPage.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+.outerDiv{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    justify-content: center;
+    align-items: center;
+}
+.innerDiv{
+    height: 60%;
+    width: 40%;
+    background-color: rgb(134, 242, 91);
+    border-radius: 5%;
+    box-shadow: 4px 2px 2px rgb(217, 229, 214);
+    text-align: center;
+}
+.heading{
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.createRoom{
+    width: 250px;
+    height:60px;
+    background-color: rgb(77, 77, 177);
+    font-size: 25px;
+    border-color: black;
+    border: 2px solid;
+}
+.createRoom:hover{
+    background-color: rgb(106, 106, 179);
+}
+
+.textbox{
+    height: 55px;
+    width: 400px;
+    background-color: rgb(234, 218, 218);
+    border-color: black;
+    border: 3px solid;
+}
+.huh{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 150px;
+}
