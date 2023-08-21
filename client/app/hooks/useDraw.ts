@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import {io} from 'socket.io-client'
-const socket =io('http://localhost:3001')
 
 export const useDraw = ( onDraw : ({ctx,currentPoint,prevPoint} : Draw) => void)=>{
     const [mouseDown,setMouseDown] = useState(false);

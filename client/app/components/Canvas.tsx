@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDraw } from '../hooks/useDraw';
 import {io} from 'socket.io-client';
 import { drawLine } from '../functions/drawLine';
+import { useParams } from 'next/navigation';
 
 const socket = io('http://localhost:3001')
 
@@ -22,6 +23,7 @@ const Canvas : React.FC<CanvasProps> = ({clear,adn,flag}) => {
   const {canvasRef,onMouseDown} = useDraw(createLine);
   const [fullClear,setFullClear] = useState<boolean>(false);
   const [canvasWidth,setCanvasWidth] = useState(750);
+  const {lobby} = useParams();
   
   useEffect(()=>{
       socket.on('clear',allclear);
@@ -37,7 +39,6 @@ const Canvas : React.FC<CanvasProps> = ({clear,adn,flag}) => {
   useEffect(()=>{
     setCanvasWidth(adn.current!.clientWidth*95/100);
   },[adn.current?.clientWidth])
-  console.log(canvasWidth,"huhuhh");
 
   // const canvasWidth = adn.current ? adn.current!.clientWidth*95/100 : 750;
   const canvasHeight = 770;
@@ -47,10 +48,11 @@ const Canvas : React.FC<CanvasProps> = ({clear,adn,flag}) => {
   useEffect(()=>{
 
     const ctx =  canvasRef.current?.getContext('2d');
-    socket.emit('newClient');
-    socket.on('getCanvasState',()=>{
+    socket.emit('joinn',lobby);
+    socket.emit('newClient',lobby);
+    socket.on('getCanvasState',(lobby)=>{
       if(!canvasRef.current?.toDataURL()) return;
-      socket.emit('canvasState',canvasRef.current?.toDataURL());
+      socket.emit('canvasState',canvasRef.current?.toDataURL(),lobby);
     })
     socket.on('draw_line',({prevPoint,currentPoint,color}:DrawLineProps)=>{
         if(!ctx) return;
@@ -80,7 +82,7 @@ const Canvas : React.FC<CanvasProps> = ({clear,adn,flag}) => {
   }
 
   function createLine({prevPoint,currentPoint,ctx} : Draw){
-    socket.emit('draw_line',({prevPoint,currentPoint,color}))
+    socket.emit('draw_line',({prevPoint,currentPoint,color}),lobby)
     drawLine({prevPoint,currentPoint,ctx,color})
   }
 

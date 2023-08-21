@@ -5,6 +5,7 @@ import '../../components/comp.css'
 import Canvas from "@/app/components/Canvas";
 import Docs from "@/app/components/Docs";
 import {io} from 'socket.io-client'
+import { useParams } from "next/navigation";
 const socket =io('http://localhost:3001')
 
 const Lobby : React.FC = () => {
@@ -14,6 +15,7 @@ const Lobby : React.FC = () => {
     const btnRef = useRef<HTMLButtonElement>(null);
     const [clear,setClear] = useState(false);
     const [flag,setFlag] = useState(false);
+    const {lobby} = useParams();
     const handleClick = ()=>{
         setClear(true);
     }
@@ -52,12 +54,12 @@ const Lobby : React.FC = () => {
 
         const hanBtn = ()=>{
             setClear(false);
-            socket.emit('clear_done');
+            socket.emit('clear_done',lobby);
         }
 
         const handleBtn = ()=>{
             setClear(true);
-            socket.emit('clear');
+            socket.emit('clear',lobby);
             btn?.addEventListener('mouseup',hanBtn);
         }
 
